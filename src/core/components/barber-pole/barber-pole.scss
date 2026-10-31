@@ -1,0 +1,50 @@
+:host {
+  display: block;
+}
+
+.pole {
+  display: grid;
+  justify-items: center;
+  width: 120px;
+  margin-inline: auto;
+
+  &__cap {
+    width: 108px;
+    height: 34px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #e9c27a, #a97a2c 55%, #7c5818);
+  }
+
+  &__glass {
+    position: relative;
+    width: 84px;
+    height: 330px;
+    overflow: hidden;
+    border-inline: 3px solid #cfd3da;
+    background: #fff;
+    box-shadow: 0 40px 50px -20px rgba(0, 0, 0, 0.7);
+  }
+
+  /* Faixas diagonais. Um ciclo vertical = 88px / cos(45°) ≈ 124,45px, então o loop não dá salto. */
+  &__stripes {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: calc(100% + 130px);
+    background: repeating-linear-gradient(-45deg, #c8342c 0 22px, #ffffff 22px 44px, #2b4fb0 44px 66px, #ffffff 66px 88px);
+    animation: spin 3.2s linear infinite;
+    will-change: translate;
+  }
+
+  &__glass::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.28), rgba(255, 255, 255, 0.22) 30%, transparent 55%, rgba(0, 0, 0, 0.3));
+  }
+}
+
+@keyframes spin {
+  to {
+    translate: 0 -124.45px;
+  }
+}

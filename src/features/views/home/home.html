@@ -1,0 +1,131 @@
+<div class="top">
+  <a class="ribbon" [href]="whatsappRibbonUrl" target="_blank" rel="noopener">
+    <span class="ribbon__badge">Site de exemplo</span>
+    <span class="ribbon__text">Criado por {{ creator.creatorName }}. <strong>Quero um assim para o meu negócio →</strong></span>
+  </a>
+
+  <header class="nav">
+    <div class="wrap nav__inner">
+      <a class="nav__brand" href="#inicio">{{ business.shortName }}</a>
+      <nav class="nav__links" aria-label="Seções do site">
+        <a href="#servicos">Serviços</a>
+        <a href="#diferenciais">Diferenciais</a>
+        <a href="#horarios">Horários</a>
+        <a href="#contato">Contato</a>
+      </nav>
+      <a class="btn btn--sm" [href]="whatsappBookingUrl" target="_blank" rel="noopener">Agendar</a>
+    </div>
+  </header>
+</div>
+
+<main>
+  <section id="inicio" class="hero">
+    <div class="wrap hero__inner">
+      <div class="hero__copy">
+        <span class="eyebrow hero__eyebrow">Barbearia · Boa Viagem, Recife</span>
+        <h1 class="hero__title">Corte clássico. <span class="hero__accent">Barba na régua.</span></h1>
+        <p class="hero__lead muted">
+          Atendimento com hora marcada, toalha quente e acabamento na navalha. Chegue, relaxe e saia no capricho.
+        </p>
+        <div class="hero__actions">
+          <a class="btn" [href]="whatsappBookingUrl" target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
+          <a class="btn btn--ghost" href="#servicos">Ver serviços e preços</a>
+        </div>
+        <p class="hero__status" [class.hero__status--open]="openStatus().isOpen">
+          <span class="hero__dot" aria-hidden="true"></span>{{ openStatus().label }}
+        </p>
+      </div>
+      <app-barber-pole class="hero__pole" />
+    </div>
+  </section>
+
+  <section id="servicos" class="section">
+    <div class="wrap">
+      <div appReveal>
+        <span class="eyebrow">Serviços</span>
+        <h2>O que fazemos por aqui</h2>
+        <p class="muted section__lead">Valores ilustrativos. No seu site entram os seus serviços e os seus preços.</p>
+      </div>
+
+      <ul class="menu">
+        @for (service of services; track service.name; let i = $index) {
+          <li class="menu__item" [appReveal]="(i % 2) * 90">
+            <div class="menu__row">
+              <h3>{{ service.name }}</h3>
+              <span class="menu__dots" aria-hidden="true"></span>
+              <strong class="menu__price">{{ service.price }}</strong>
+            </div>
+            <p class="muted">{{ service.description }}</p>
+          </li>
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section id="diferenciais" class="section section--alt">
+    <div class="wrap">
+      <div appReveal>
+        <span class="eyebrow">Diferenciais</span>
+        <h2>Mais que um corte</h2>
+      </div>
+
+      <div class="perks">
+        @for (perk of perks; track perk.title; let i = $index) {
+          <article class="perk" [appReveal]="i * 110">
+            <span class="perk__icon" aria-hidden="true">{{ perk.icon }}</span>
+            <h3>{{ perk.title }}</h3>
+            <p class="muted">{{ perk.description }}</p>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="horarios" class="section">
+    <div class="wrap visit">
+      <div appReveal>
+        <span class="eyebrow">Horários</span>
+        <h2>Quando abrimos</h2>
+        <p class="hero__status visit__status" [class.hero__status--open]="openStatus().isOpen">
+          <span class="hero__dot" aria-hidden="true"></span>{{ openStatus().label }}
+        </p>
+        <dl class="hours">
+          @for (row of hoursTable; track row.days) {
+            <div class="hours__row">
+              <dt>{{ row.days }}</dt>
+              <dd>{{ row.hours }}</dd>
+            </div>
+          }
+        </dl>
+      </div>
+
+      <div class="map" appReveal="120">
+        <span class="map__pin" aria-hidden="true">📍</span>
+        <p class="map__title">{{ business.address }}</p>
+        <p class="muted map__note">Aqui entra o mapa do Google com o endereço do seu negócio, para o cliente chegar sem se perder.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato" class="section section--alt">
+    <div class="wrap cta" appReveal>
+      <h2>Bora deixar esse visual em dia?</h2>
+      <p class="muted">Chame no WhatsApp e escolha o seu horário.</p>
+      <a class="btn" [href]="whatsappBookingUrl" target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <p>© {{ currentYear }} {{ business.name }} · negócio fictício, só para demonstração.</p>
+    <p>
+      Site criado por
+      <a [href]="creator.creatorSiteUrl" target="_blank" rel="noopener">{{ creator.creatorName }}</a>
+      ·
+      <a [href]="whatsappRibbonUrl" target="_blank" rel="noopener">quero um site assim</a>
+    </p>
+  </div>
+</footer>
+
+<a class="float" [href]="whatsappBookingUrl" target="_blank" rel="noopener" aria-label="Agendar pelo WhatsApp">💬</a>
